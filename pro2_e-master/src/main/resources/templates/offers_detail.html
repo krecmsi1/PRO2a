@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Band Finder</title>
+</head>
+<body>
+<h1 th:text="${offer != null ? 'Offer: ' + offer.name : 'Offer not found.'}"></h1>
+
+<!-- <h3 th:if="${offer != null and offer.band != null}" th:text="'Band: ' + ${offer.band.name}"></h3> -->
+<h3 th:if="${offer != null}">
+    <span th:if="${offer.band != null}" th:text="'Band: ' + ${offer.band.name}"></span>
+    <span th:if="${offer.band == null}">Band: unknown</span>
+</h3>
+
+<a th:if="${offer != null}" th:href="@{'/offers/' + ${offer.id} + '/edit'}">Edit Offer</a>
+<a th:if="${offer != null}" th:href="@{'/offers/' + ${offer.id} + '/delete'}">Delete Offer</a>
+
+<a th:if="${offer == null}" th:href="@{/offers/}">Back to Offer List</a>
+<a th:href="@{/offers/}">Cancel</a>
+
+</body>
+</html>

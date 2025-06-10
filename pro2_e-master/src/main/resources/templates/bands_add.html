@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Band Finder</title>
+</head>
+<body>
+<h1 th:text="${band.id == 0 ? 'New Band' : 'Edit Band'}"></h1>
+
+<form method="post" th:action="@{/bands/save}" th:object="${band}">
+    <input type="hidden" th:field="*{id}">
+    Name: <input type="text" th:field="*{name}">
+    Genre: <input type="text" th:field="*{genre}">
+    Description: <input type="text" th:field="*{description}">
+    Looking for (instrument): <input type="text" th:field="*{lookFor}">
+    <input type="submit" value="Save">
+    <a th:href="@{/bands/}">Cancel</a>
+</form>
+
+</body>
+</html>

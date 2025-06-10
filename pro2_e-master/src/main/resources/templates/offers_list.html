@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Band Finder</title>
+</head>
+<body>
+<h1>List of All Offers</h1>
+<a th:href="@{/offers/add}">Add New Offer</a>
+<a th:href="@{/}">Home</a>
+
+<ul>
+    <li th:each="offer: ${offers}">
+        <a th:href="@{'/offers/' + ${offer.id}}" th:text="${offer.name}"></a>
+    </li>
+</ul>
+
+</body>
+</html>

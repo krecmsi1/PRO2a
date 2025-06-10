@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Band Finder</title>
+</head>
+<body>
+<h1 th:text="${offer != null ? 'Do you really want to delete offer: '
+                            + offer.name : 'Offer not found.'}"></h1>
+
+<form th:if="${offer != null}" method="post"
+      th:action="@{'/offers/' + ${offer.id} + '/delete'}">
+
+    <input type="submit" value="Yes, delete!">
+    <a th:href="@{'/offers/' + ${offer.id}}">No</a>
+
+</form>
+
+<a th:if="${offer == null}" th:href="@{/offers/}">Back to Offer List</a>
+
+</body>
+</html>

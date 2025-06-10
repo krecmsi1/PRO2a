@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Band Finder</title>
+    
+</head>
+    <body>
+        
+        <h1>My Bands</h1>
+        <h3 th:text="${#authentication.name}"></h3>
+
+        <a th:href="@{/bands/add}">Add New Band</a>
+        <a th:href="@{/}">Home</a>
+
+        
+
+            <ul>
+                <li th:each="band: ${bands}">
+                    <a th:href="@{'/bands/' + ${band.id}}" th:text="${band.name}"></a>
+                    <p sec:authorize = "hasRole('ROLE_USER')">Created by: </p>
+                </li>
+            </ul>
+        
+    </body>
+</html>

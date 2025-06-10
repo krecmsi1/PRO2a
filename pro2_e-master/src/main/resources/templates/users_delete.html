@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Band Finder</title>
+</head>
+<body>
+<h1 th:text="${user != null ? 'Do you really want to delete user: '
+                            + user.name : 'User not found.'}"></h1>
+
+<form th:if="${user != null}" method="post"
+      th:action="@{'/users/' + ${user.id} + '/delete'}">
+
+    <input type="submit" value="Yes, delete!">
+    <a th:href="@{'/users/' + ${user.id}}">No</a>
+
+</form>
+
+<a th:if="${user == null}" th:href="@{/users/}">Back to User List</a>
+
+</body>
+</html>

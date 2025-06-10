@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Band Finder</title>
+</head>
+<body>
+<h1 th:text="${offer.id == 0 ? 'New Offer' : 'Edit Course'}"></h1>
+
+<form method="post" th:action="@{/offers/save}" th:object="${offer}">
+    <input type="hidden" th:field="*{id}">
+    Name: <input type="text" th:field="*{name}"><br>
+
+    Band:
+    <select th:field="*{band}">
+        <option th:each="lec: ${bands}"
+                th:value="${lec.id}" th:text="${lec.name}"></option>
+    </select>
+    <input type="submit" value="Save">
+    <a th:href="@{/offers/}">Cancel</a>
+</form>
+
+</body>
+</html>
