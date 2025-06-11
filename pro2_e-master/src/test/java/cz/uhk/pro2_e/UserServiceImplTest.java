@@ -1,5 +1,6 @@
 package cz.uhk.pro2_e;
 
+import cz.uhk.pro2_e.model.Role;
 import cz.uhk.pro2_e.model.User;
 import cz.uhk.pro2_e.repository.UserRepository;
 import cz.uhk.pro2_e.security.MyUserDetails;
@@ -10,9 +11,11 @@ import org.mockito.*;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -53,6 +56,32 @@ class UserServiceImplTest {
 
         assertEquals("encodedPassword", user.getPassword());
         verify(userRepository, times(1)).save(user);
+    }
+
+    @Test
+    void testSaveUserUsesExistingPasswordIfPasswordEmpty() {
+        User user = new User();
+        user.setId(1L);
+        user.setPassword(""); // empty password
+
+        User existingUser = new User();
+        existingUser.setPassword("existingPassword");
+
+        when(userRepository.findById(1L)).thenReturn(Optional.of(existingUser));
+
+        userService.saveUser(user);
+
+        assertEquals("existingPassword", user.getPassword());
+        verify(userRepository, times(1)).save(user);
+    }
+
+    @Test
+    void testSaveUserThrowsIfNewUserAndNoPassword() {
+        User user = new User();
+        user.setId(0L);
+        user.setPassword(null);
+
+        assertThrows(IllegalArgumentException.class, () -> userService.saveUser(user));
     }
 
     @Test
@@ -101,5 +130,48 @@ class UserServiceImplTest {
         when(userRepository.findByUsername("notfound")).thenReturn(null);
 
         assertThrows(UsernameNotFoundException.class, () -> userService.loadUserByUsername("notfound"));
+    }
+
+    @Test
+    void testFindByUsername() {
+        User user = new User();
+        user.setUsername("jirka");
+        when(userRepository.findByUsername("jirka")).thenReturn(user);
+
+        User found = userService.findByUsername("jirka");
+
+        assertNotNull(found);
+        assertEquals("jirka", found.getUsername());
+    }
+
+    @Test
+    void testIsAdminReturnsTrue() {
+        User user = new User();
+        user.setRole(Role.ADMIN);
+        when(userRepository.findByUsername("adminUser")).thenReturn(user);
+
+        boolean result = userService.isAdmin("adminUser");
+
+        assertTrue(result);
+    }
+
+    @Test
+    void testIsAdminReturnsFalseForUser() {
+        User user = new User();
+        user.setRole(Role.USER);
+        when(userRepository.findByUsername("normalUser")).thenReturn(user);
+
+        boolean result = userService.isAdmin("normalUser");
+
+        assertFalse(result);
+    }
+
+    @Test
+    void testIsAdminReturnsFalseIfUserNotFound() {
+        when(userRepository.findByUsername("ghost")).thenReturn(null);
+
+        boolean result = userService.isAdmin("ghost");
+
+        assertFalse(result);
     }
 }
