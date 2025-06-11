@@ -9,10 +9,23 @@
 
 <form method="post" th:action="@{/users/save}" th:object="${user}">
     <input type="hidden" th:field="*{id}">
+
     Name: <input type="text" th:field="*{name}">
     Password: <input type="password" th:field="*{password}">
+    Email: <input type ="text" th:field="*{email}">
+    Phone: <input type = "text" th:field="*{phone}">
+    About me: <textarea th:field="*{aboutMe}"></textarea>
+
     <input type="submit" value="Save">
-    <a th:href="@{/users/}">Cancel</a>
+    
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <a th:href="@{/users/}">Cancel</a>
+    </div>
+   
+    <div sec:authorize="hasRole('ROLE_USER')">
+        <a th:href="@{/users/profile}">Cancel</a>
+    </div>
+    
 </form>
 
 </body>

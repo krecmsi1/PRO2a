@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1 th:text="${band != null ? 'Band: ' + band.name : 'Band not found.'}"></h1>
-
+<p th:text="${user != null ? 'Created by: ' + user.name : 'User no found'}"></p>
 <h2 th:text="${band != null ? 'Genre: ' + band.genre : 'Genre not found.'}"></h2>
 <h2 th:text="${band != null ? 'About us: ' + band.description : 'Nic'}"></h2>
 

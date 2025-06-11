@@ -5,12 +5,31 @@
     <title>User Finder</title>
 </head>
 <body>
-<h1 th:text="${user != null ? 'User: ' + user.name : 'User not found.'}"></h1>
+    <div th:if="${user != null}">
+        <h1 th:text="${'User: ' + user.name}"></h1>
+        <p><strong>Email: </strong><span th:text="${user.email}"></span></p>
+        <p><strong>Role:</strong>
+            <span th:each="role: ${user.role}"
+                th:text="${role.name} + ' '" ></span>
+        </p>
+        <p><strong>Phone:</strong> <span th:text="${user.phone}"></span></p>
+        <p><strong>About me: </strong><span th:text="${user.aboutMe}"></span></p>
+        
+        <div sec:authorize="hasRole('ROLE_ADMIN')">
+            <a th:if="${user != null}" th:href="@{'/users/' + ${user.id} + '/edit'}">Edit User</a>
+            <a th:if="${user != null}" th:href="@{'/users/' + ${user.id} + '/delete'}">Delete User</a>
 
-<a th:if="${user != null}" th:href="@{'/users/' + ${user.id} + '/edit'}">Edit User</a>
-<a th:if="${user != null}" th:href="@{'/users/' + ${user.id} + '/delete'}">Delete User</a>
+            <a th:if="${user == null}" th:href="@{/users/}">Back to User List</a>
+        </div>
 
-<a th:if="${user == null}" th:href="@{/users/}">Back to User List</a>
-
+        <div sec:authorize="hasRole('ROLE_USER')">
+            
+            <a th:if="${user != null}" th:href="@{'/users/' + ${user.id} + '/edit'}">Edit Profile</a>
+            <a th:if="${user != null}" th:href="@{/}">Back to Home</a>
+        </div>
+    </div>
+    <div th:if="${user == null}">
+        Uživatelská data nejsou dostupná.
+    </div>
 </body>
 </html>

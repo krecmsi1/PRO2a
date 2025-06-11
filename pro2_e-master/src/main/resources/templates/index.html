@@ -16,7 +16,7 @@
 <a th:href="@{/admin}">Admin section</a>
 </div>
 <div sec:authorize="hasRole('ROLE_USER')">
-<a th:href="@{/users/{user.id}}">Profile</a>
+<a th:href="@{/users/profile}">Profile</a>
 <a th:href="@{/bands/}">My Bands</a>
 <a th:href="@{/offers/}">My Offers</a>
 </div>

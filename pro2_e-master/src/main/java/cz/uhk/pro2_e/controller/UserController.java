@@ -66,6 +66,13 @@ public class UserController {
         return "redirect:/users/";
     }
 
+    @GetMapping("/profile")
+    public String userProfile(Model model, Principal principal){
+        String username = principal.getName();
+        User user = userService.findByUsername(username);
+        model.addAttribute("user", user);
+        return "users_detail";
+    }
 
 
 }
