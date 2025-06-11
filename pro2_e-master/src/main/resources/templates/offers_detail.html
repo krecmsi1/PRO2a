@@ -7,15 +7,25 @@
 <body>
 <h1 th:text="${offer != null ? 'Offer: ' + offer.name : 'Offer not found.'}"></h1>
 
-<!-- <h3 th:if="${offer != null and offer.band != null}" th:text="'Band: ' + ${offer.band.name}"></h3> -->
-<h3 th:if="${offer != null}">
-    <span th:if="${offer.band != null}" th:text="'Band: ' + ${offer.band.name}"></span>
-    <span th:if="${offer.band == null}">Band: unknown</span>
-</h3>
+<div th:if="${offer != null}">
+    <p>
+        <strong>Band:</strong>
+        <span th:text="${offer.band != null ? offer.band.name : 'not found'}"></span>
+    </p>
 
-<a th:if="${offer != null}" th:href="@{'/offers/' + ${offer.id} + '/edit'}">Edit Offer</a>
-<a th:if="${offer != null}" th:href="@{'/offers/' + ${offer.id} + '/delete'}">Delete Offer</a>
+    <p>
+        <strong>Looking for:</strong>
+        <span th:text="${offer.lookingFor != null ? offer.lookingFor : 'not specified'}"></span>
+    </p>
 
+    <p>
+        <strong>Description:</strong><br>
+        <span th:text="${offer.description != null ? offer.description : 'no description'}"></span>
+    </p>
+
+    <a th:href="@{'/offers/' + ${offer.id} + '/edit'}">Edit Offer</a>
+    <a th:href="@{'/offers/' + ${offer.id} + '/delete'}">Delete Offer</a>
+</div>
 <a th:if="${offer == null}" th:href="@{/offers/}">Back to Offer List</a>
 <a th:href="@{/offers/}">Cancel</a>
 

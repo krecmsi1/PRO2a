@@ -42,4 +42,24 @@ public class Offer {
     public void setName(String name) {
         this.name = name;
     }
+
+    private String lookingFor;
+
+    public String getLookingFor() {
+        return lookingFor;
+    }
+    
+    public void setLookingFor(String lookingFor) {
+        this.lookingFor = lookingFor;
+    }
+
+    @Column(length = 2000)
+    private String description;
+
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

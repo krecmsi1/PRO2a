@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @GetMapping("/add")
-    @PreAuthorize("hasRole('Admin')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String add(Model model) {
         model.addAttribute("user", new User());
         return "users_add";

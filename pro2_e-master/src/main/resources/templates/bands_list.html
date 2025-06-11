@@ -18,7 +18,7 @@
             <ul>
                 <li th:each="band: ${bands}">
                     <a th:href="@{'/bands/' + ${band.id}}" th:text="${band.name}"></a>
-                    <p sec:authorize = "hasRole('ROLE_USER')">Created by: </p>
+                    <p sec:authorize = "hasRole('ROLE_USER')">Created by: <span th:text="${#authentication.name}"></span></p>
                 </li>
             </ul>
         

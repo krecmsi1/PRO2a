@@ -9,15 +9,31 @@
 
 <form method="post" th:action="@{/offers/save}" th:object="${offer}">
     <input type="hidden" th:field="*{id}">
-    Name: <input type="text" th:field="*{name}"><br>
+    Name: <input type="text" th:field="*{name}" required><br>
 
     Band:
     <select th:field="*{band}">
         <option th:each="lec: ${bands}"
                 th:value="${lec.id}" th:text="${lec.name}"></option>
-    </select>
+    </select><br>
+
+    Looking for:
+    <select th:field="*{lookingFor}">
+        <option value="">-- Vyberte --</option>
+        <option value="Guitar">Guitar</option>
+        <option value="Drums">Drums</option>
+        <option value="Vocals">Vocals</option>
+        <option value="Other">Other</option>
+    </select><br>
+
+    Description: 
+    <textarea th:field="*{description}" rows="4" cols="30"></textarea><br><br>
+
     <input type="submit" value="Save">
     <a th:href="@{/offers/}">Cancel</a>
+
+    
+    
 </form>
 
 </body>

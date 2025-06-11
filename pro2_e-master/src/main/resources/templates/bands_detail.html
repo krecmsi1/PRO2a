@@ -7,9 +7,8 @@
 <body>
 <h1 th:text="${band != null ? 'Band: ' + band.name : 'Band not found.'}"></h1>
 
-<h2 th:text="${genre != null ? 'Genre: ' + band.genre : 'Genre not found.'}"></h2>
-<h2 th:text="${description != null ? 'About us: ' + band.description : 'Nic'}"></h2>
-<h2 th:text="${lookFor != null ? 'Looking for: ' + lookFor.name : 'instrument not found.'}"></h2>
+<h2 th:text="${band != null ? 'Genre: ' + band.genre : 'Genre not found.'}"></h2>
+<h2 th:text="${band != null ? 'About us: ' + band.description : 'Nic'}"></h2>
 
 
 

@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>List of All Users</h1>
-<a th:if="${#authorization.expression('hasRole(''ADMIN'')')}" th:href="@{/users/add}">Add User</a>
+<a th:href="@{/users/add}">Add User</a>
 
 <a th:href="@{/}">Home</a>
 
