@@ -9,6 +9,7 @@
 
 <form method="post" th:action="@{/bands/save}" th:object="${band}">
     <input type="hidden" th:field="*{id}">
+    <input type="hidden" th:field="*{user}">
     Name: <input type="text" th:field="*{name}">
     Genre: <input type="text" th:field="*{genre}">
     Description: <input type="text" th:field="*{description}">

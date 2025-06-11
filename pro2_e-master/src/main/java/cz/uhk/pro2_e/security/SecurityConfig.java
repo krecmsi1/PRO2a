@@ -37,7 +37,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests((requests) -> requests // Change to authorizeHttpRequests
                         //.requestMatchers("/", "/home").permitAll()
-                        .requestMatchers("/users/register", "/login", "/css/**", "/js/**").permitAll()
+                        .requestMatchers("/register", "/register/**", "/login", "/css/**", "/js/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/users/profile").hasAnyRole("USER", "ADMIN")
                         .anyRequest().authenticated()
@@ -47,7 +47,7 @@ public class SecurityConfig {
                         .loginPage("/login") // Custom login page
                         .loginProcessingUrl("/login") // Form submission URL
                         .defaultSuccessUrl("/", true)
-                        .permitAll()) // Permit all to access the login page
+                        .permitAll()) 
                 .logout(logout -> logout
                         .logoutUrl("/logout")
                         .logoutSuccessUrl("/login?logout")

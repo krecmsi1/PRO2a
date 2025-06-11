@@ -1,5 +1,6 @@
 package cz.uhk.pro2_e.controller;
 
+import cz.uhk.pro2_e.model.Role;
 import cz.uhk.pro2_e.model.User;
 import cz.uhk.pro2_e.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +73,13 @@ public class UserController {
         User user = userService.findByUsername(username);
         model.addAttribute("user", user);
         return "users_detail";
+    }
+
+    @PostMapping("/register")
+    public String registerUser(@ModelAttribute User user){
+        user.setRole(Role.USER);
+        userService.saveUser(user);
+        return "redirect:/register%success";
     }
 
 

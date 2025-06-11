@@ -27,7 +27,6 @@ public class Pro2EApplication {
     @Bean
     CommandLineRunner init() {
         return args -> {
-            addUser("User", "user", "heslo", Role.USER);
             addUser("Admin", "admin", "heslo", Role.ADMIN);
         };
     }

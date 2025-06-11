@@ -78,4 +78,10 @@ public void saveUser(User user) {
     User user = findByUsername(username);
     return user != null && user.getRole() == Role.ADMIN;
     }
+
+    public void registerUser(User user){
+        user.setRole(Role.USER);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+    }
 }
