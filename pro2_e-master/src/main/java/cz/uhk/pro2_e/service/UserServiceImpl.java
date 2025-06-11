@@ -34,7 +34,6 @@ public void saveUser(User user) {
     if (user.getPassword() != null && !user.getPassword().isEmpty()) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
     } else if (user.getId() != 0) {
-        // při editaci bez změny hesla – ponecháme stávající heslo
         User existingUser = userRepository.findById(user.getId()).orElse(null);
         if (existingUser != null) {
             user.setPassword(existingUser.getPassword());
@@ -44,10 +43,12 @@ public void saveUser(User user) {
     }
 
     if (user.getRole() == null) {
-        user.setRole(Role.USER); // výchozí role pro nové uživatele
+        user.setRole(Role.USER);
     }
 
     userRepository.save(user);
+    System.out.println("Ukládám uživatele: " + user.getUsername() + ", heslo: " + user.getPassword());
+
 }
 
 
@@ -79,9 +80,4 @@ public void saveUser(User user) {
     return user != null && user.getRole() == Role.ADMIN;
     }
 
-    public void registerUser(User user){
-        user.setRole(Role.USER);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
-    }
 }

@@ -8,14 +8,18 @@
 <h2>Registration</h2>
 
 <div th:if="${param.error}">
-    Registration failed. Please try again.
+    Registration failed.
 </div>
 
 <div th:if="${param.success}">
-    Registration successful. Please <a th:href="@{/login}">login</a>.
+    Registration successful.
 </div>
 
-<form th:action="@{/register}" method="post" th:object="${user}">
+<form th:action="@{/users/register}" method="post" th:object="${user}">
+    <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" th:field="*{name}" required />
+    </div>
     <div>
         <label for="username">Username:</label>
         <input type="text" id="username" th:field="*{username}" required/>

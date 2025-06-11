@@ -1,10 +1,11 @@
 package cz.uhk.pro2_e.controller;
 
-import cz.uhk.pro2_e.model.Role;
 import cz.uhk.pro2_e.model.User;
+import cz.uhk.pro2_e.model.Role;
 import cz.uhk.pro2_e.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 @RequestMapping("/users")
 public class UserController {
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     private UserService userService;
 
     @Autowired
@@ -74,12 +77,18 @@ public class UserController {
         model.addAttribute("user", user);
         return "users_detail";
     }
+    
+    @GetMapping("/register")
+    public String showRegistrationForm(Model model){
+        model.addAttribute("user",new User());
+        return "register";
+    }
 
     @PostMapping("/register")
     public String registerUser(@ModelAttribute User user){
         user.setRole(Role.USER);
         userService.saveUser(user);
-        return "redirect:/register%success";
+        return "redirect:/register?success";
     }
 
 
